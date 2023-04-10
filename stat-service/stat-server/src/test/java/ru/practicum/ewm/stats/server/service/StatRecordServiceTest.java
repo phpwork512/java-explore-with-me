@@ -27,20 +27,20 @@ public class StatRecordServiceTest {
 
     @Test
     void newStatRecordTest() {
-        StatRecordCreateDto statRecordCreateDto = StatRecordCreateDto.builder().
-                app("test-app").
-                uri("/test/uri").
-                ip("1.1.1.1").
-                timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+        StatRecordCreateDto statRecordCreateDto = StatRecordCreateDto.builder()
+                .app("test-app")
+                .uri("/test/uri")
+                .ip("1.1.1.1")
+                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
 
-        StatRecord statRecord = StatRecord.builder().
-                id(1).
-                appName("test-app").
-                uri("/test/uri").
-                ip("1.1.1.1").
-                timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)).
-                build();
+        StatRecord statRecord = StatRecord.builder()
+                .id(1)
+                .appName("test-app")
+                .uri("/test/uri")
+                .ip("1.1.1.1")
+                .timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .build();
 
         Mockito
                 .when(mockStatRecordRepository.save(Mockito.any(StatRecord.class)))
@@ -52,20 +52,20 @@ public class StatRecordServiceTest {
 
     @Test
     void getStats() {
-        StatRecordCreateDto statRecordCreateDto = StatRecordCreateDto.builder().
-                app("test-app").
-                uri("/test/uri").
-                ip("1.1.1.1").
-                timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+        StatRecordCreateDto statRecordCreateDto = StatRecordCreateDto.builder()
+                .app("test-app")
+                .uri("/test/uri")
+                .ip("1.1.1.1")
+                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
 
-        StatRecord statRecord = StatRecord.builder().
-                id(1).
-                appName("test-app").
-                uri("/test/uri").
-                ip("1.1.1.1").
-                timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)).
-                build();
+        StatRecord statRecord = StatRecord.builder()
+                .id(1)
+                .appName("test-app")
+                .uri("/test/uri")
+                .ip("1.1.1.1")
+                .timestamp(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS))
+                .build();
 
         Mockito
                 .when(mockStatRecordRepository.save(Mockito.any(StatRecord.class)))

@@ -12,14 +12,13 @@ import java.time.format.DateTimeFormatter;
 public class StatRecordCreateDtoMapper {
     public static StatRecord toStatRecord(StatRecordCreateDto statRecordCreateDto) {
         if (statRecordCreateDto != null) {
-            return StatRecord.builder().
-                    appName(statRecordCreateDto.getApp()).
-                    uri(statRecordCreateDto.getUri()).
-                    ip(statRecordCreateDto.getIp()).
-                    timestamp(LocalDateTime.parse(statRecordCreateDto.getTimestamp(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).
-                    build();
-        }
-        else {
+            return StatRecord.builder()
+            .appName(statRecordCreateDto.getApp())
+            .uri(statRecordCreateDto.getUri())
+            .ip(statRecordCreateDto.getIp())
+            .timestamp(LocalDateTime.parse(statRecordCreateDto.getTimestamp(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+            .build();
+        } else {
             return null;
         }
     }

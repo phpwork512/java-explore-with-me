@@ -21,20 +21,17 @@ public class StatRecordService {
         return statRecordRepository.save(statRecord);
     }
 
-    public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique){
+    public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
         if (uris.isEmpty()) {
             if (!unique) {
                 return statRecordRepository.findStats(start, end);
-            }
-            else {
+            } else {
                 return statRecordRepository.findStatsUniqueIp(start, end);
             }
-        }
-        else {
+        } else {
             if (!unique) {
                 return statRecordRepository.findStatsForUriList(start, end, uris);
-            }
-            else {
+            } else {
                 return statRecordRepository.findStatsForUriListAndUniqueIp(start, end, uris);
             }
         }

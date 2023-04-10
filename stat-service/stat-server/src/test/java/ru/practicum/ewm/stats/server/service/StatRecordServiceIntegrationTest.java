@@ -30,46 +30,46 @@ class StatRecordServiceIntegrationTest {
 
     @BeforeEach
     void beforeEach() {
-        statRecordService.newStatRecord(StatRecordCreateDto.builder().
-                app("test-app").
-                uri("/test/uri").
-                ip("1.1.1.1").
-                timestamp(time.format(dateTimeFormat))
+        statRecordService.newStatRecord(StatRecordCreateDto.builder()
+                .app("test-app")
+                .uri("/test/uri")
+                .ip("1.1.1.1")
+                .timestamp(time.format(dateTimeFormat))
                 .build());
 
-        statRecordService.newStatRecord(StatRecordCreateDto.builder().
-                app("test-app").
-                uri("/test/uri").
-                ip("1.1.1.1").
-                timestamp(time.plusMinutes(5).format(dateTimeFormat))
+        statRecordService.newStatRecord(StatRecordCreateDto.builder()
+                .app("test-app")
+                .uri("/test/uri")
+                .ip("1.1.1.1")
+                .timestamp(time.plusMinutes(5).format(dateTimeFormat))
                 .build());
 
-        statRecordService.newStatRecord(StatRecordCreateDto.builder().
-                app("test-app").
-                uri("/test/uri").
-                ip("1.1.1.2").
-                timestamp(time.format(dateTimeFormat))
+        statRecordService.newStatRecord(StatRecordCreateDto.builder()
+                .app("test-app")
+                .uri("/test/uri")
+                .ip("1.1.1.2")
+                .timestamp(time.format(dateTimeFormat))
                 .build());
 
-        statRecordService.newStatRecord(StatRecordCreateDto.builder().
-                app("test-app").
-                uri("/test/other-uri").
-                ip("1.1.1.2").
-                timestamp(time.format(dateTimeFormat))
+        statRecordService.newStatRecord(StatRecordCreateDto.builder()
+                .app("test-app")
+                .uri("/test/other-uri")
+                .ip("1.1.1.2")
+                .timestamp(time.format(dateTimeFormat))
                 .build());
 
-        statRecordService.newStatRecord(StatRecordCreateDto.builder().
-                app("other-app").
-                uri("/test/other-app-uri").
-                ip("1.1.1.1").
-                timestamp(time.format(dateTimeFormat))
+        statRecordService.newStatRecord(StatRecordCreateDto.builder()
+                .app("other-app")
+                .uri("/test/other-app-uri")
+                .ip("1.1.1.1")
+                .timestamp(time.format(dateTimeFormat))
                 .build());
 
-        statRecordService.newStatRecord(StatRecordCreateDto.builder().
-                app("other-app").
-                uri("/test/other-app-uri").
-                ip("1.1.1.1").
-                timestamp(time.plusMinutes(5).format(dateTimeFormat))
+        statRecordService.newStatRecord(StatRecordCreateDto.builder()
+                .app("other-app")
+                .uri("/test/other-app-uri")
+                .ip("1.1.1.1")
+                .timestamp(time.plusMinutes(5).format(dateTimeFormat))
                 .build());
     }
 
