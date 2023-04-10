@@ -40,20 +40,20 @@ public class StatClient {
     }
 
     public void newStatRecord(String uri, String ip, LocalDateTime timestamp) {
-        StatRecordCreateDto statRecordCreateDto = StatRecordCreateDto.builder().
-                app(appName).
-                uri(uri).
-                ip(ip).
-                timestamp(timestamp.format(dateTimeFormat)).
-                build();
+        StatRecordCreateDto statRecordCreateDto = StatRecordCreateDto.builder()
+                .app(appName)
+                .uri(uri)
+                .ip(ip)
+                .timestamp(timestamp.format(dateTimeFormat))
+                .build();
 
         try {
-            HttpRequest request = HttpRequest.newBuilder().
-                    POST(HttpRequest.BodyPublishers.ofString(json.writeValueAsString(statRecordCreateDto))).
-                    uri(URI.create(serverUrl + "/hit")).
-                    header(HttpHeaders.CONTENT_TYPE, "application/json").
-                    header(HttpHeaders.ACCEPT, "application/json").
-                    build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .POST(HttpRequest.BodyPublishers.ofString(json.writeValueAsString(statRecordCreateDto)))
+                    .uri(URI.create(serverUrl + "/hit"))
+                    .header(HttpHeaders.CONTENT_TYPE, "application/json")
+                    .header(HttpHeaders.ACCEPT, "application/json")
+                    .build();
 
             HttpResponse<Void> response = httpClient.send(request, HttpResponse.BodyHandlers.discarding());
             if (response.statusCode() == HttpStatus.CREATED.value()) {
@@ -75,11 +75,11 @@ public class StatClient {
 
         try {
             String queryString = parameters.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue()).collect(Collectors.joining("&"));
-            HttpRequest request = HttpRequest.newBuilder().
-                    GET().
-                    uri(URI.create(serverUrl + "/stats?" + queryString)).
-                    header(HttpHeaders.ACCEPT, "application/json").
-                    build();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .GET()
+                    .uri(URI.create(serverUrl + "/stats?" + queryString))
+                    .header(HttpHeaders.ACCEPT, "application/json")
+                    .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == HttpStatus.OK.value()) {
