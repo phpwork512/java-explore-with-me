@@ -16,12 +16,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping
 @RequiredArgsConstructor
 @Slf4j
 @Validated
 public class StatRecordController {
     private final StatRecordService statRecordService;
+    private static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @PostMapping("/hit")
     @ResponseStatus(HttpStatus.CREATED)
@@ -32,8 +32,8 @@ public class StatRecordController {
 
     @GetMapping("/stats")
     @ResponseStatus(HttpStatus.OK)
-    public List<ViewStatsDto> getStats(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
-                                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end,
+    public List<ViewStatsDto> getStats(@RequestParam @DateTimeFormat(pattern = DATE_TIME_FORMAT) LocalDateTime start,
+                                       @RequestParam @DateTimeFormat(pattern = DATE_TIME_FORMAT) LocalDateTime end,
                                        @RequestParam(defaultValue = "") List<String> uris,
                                        @RequestParam(defaultValue = "false") boolean unique) {
         if (start.isBefore(end)) {

@@ -9,13 +9,12 @@ import ru.practicum.ewm.stats.common_dto.StatRecordCreateDto;
 import ru.practicum.ewm.stats.common_dto.ViewStatsDto;
 
 import javax.transaction.Transactional;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Transactional
 @SpringBootTest(

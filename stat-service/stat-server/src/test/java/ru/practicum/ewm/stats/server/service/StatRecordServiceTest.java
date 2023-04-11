@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.practicum.ewm.stats.common_dto.StatRecordCreateDto;
-import ru.practicum.ewm.stats.server.repository.StatRecordRepository;
 import ru.practicum.ewm.stats.server.model.StatRecord;
+import ru.practicum.ewm.stats.server.repository.StatRecordRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

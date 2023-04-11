@@ -28,7 +28,7 @@ public class StatClient {
     private final String serverUrl;
     private final HttpClient httpClient;
     private final ObjectMapper json;
-    private final DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public StatClient(@Value("$spring.application.name") String appName,
                       @Value("${stat-server.url}") String serverUrl,
@@ -44,7 +44,7 @@ public class StatClient {
                 .app(appName)
                 .uri(uri)
                 .ip(ip)
-                .timestamp(timestamp.format(dateTimeFormat))
+                .timestamp(timestamp.format(DATE_TIME_FORMATTER))
                 .build();
 
         try {
@@ -68,8 +68,8 @@ public class StatClient {
 
     public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         Map<String, Object> parameters = Map.of(
-                "start", start.format(dateTimeFormat),
-                "end", end.format(dateTimeFormat),
+                "start", start.format(DATE_TIME_FORMATTER),
+                "end", end.format(DATE_TIME_FORMATTER),
                 "uris", uris != null ? String.join(",", uris) : "",
                 "unique", unique != null ? unique.toString() : "");
 
@@ -83,7 +83,8 @@ public class StatClient {
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == HttpStatus.OK.value()) {
-                List<ViewStatsDto> statsList = json.readValue(response.body(), new TypeReference<>() {});
+                List<ViewStatsDto> statsList = json.readValue(response.body(), new TypeReference<>() {
+                });
 
                 log.info("Stats received for: {} - {}, {}, {}. Received {} records",
                         start,

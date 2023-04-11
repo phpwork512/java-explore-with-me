@@ -3,10 +3,10 @@ package ru.practicum.ewm.stats.server.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.stats.common_dto.StatRecordCreateDto;
+import ru.practicum.ewm.stats.common_dto.ViewStatsDto;
 import ru.practicum.ewm.stats.server.model.StatRecord;
 import ru.practicum.ewm.stats.server.model.dto.StatRecordCreateDtoMapper;
 import ru.practicum.ewm.stats.server.repository.StatRecordRepository;
-import ru.practicum.ewm.stats.common_dto.ViewStatsDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
