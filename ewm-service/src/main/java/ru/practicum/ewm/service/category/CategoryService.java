@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import ru.practicum.ewm.service.category.model.Category;
 import ru.practicum.ewm.service.common.pagination.PaginationCalculator;
 import ru.practicum.ewm.service.event.EventService;
-import ru.practicum.ewm.service.exceptions.*;
-import ru.practicum.ewm.service.user.UserRepository;
-import ru.practicum.ewm.service.user.model.User;
+import ru.practicum.ewm.service.exceptions.CategoryHaveLinkedEventsException;
+import ru.practicum.ewm.service.exceptions.CategoryNameNotUniqueException;
+import ru.practicum.ewm.service.exceptions.CategoryNotFoundException;
 
 import java.util.List;
 import java.util.Optional;

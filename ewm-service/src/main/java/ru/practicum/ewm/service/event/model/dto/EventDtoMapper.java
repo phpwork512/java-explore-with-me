@@ -44,7 +44,7 @@ public final class EventDtoMapper {
     public static List<EventFullDto> toEventFullDtoList(Collection<Event> allEvents) {
         if (allEvents != null) {
             List<EventFullDto> eventFullDtoList = new ArrayList<>();
-            for(Event event : allEvents) {
+            for (Event event : allEvents) {
                 eventFullDtoList.add(toEventFullDto(event));
             }
             return eventFullDtoList;
@@ -99,7 +99,7 @@ public final class EventDtoMapper {
     public static List<EventShortDto> toEventShortDtoList(Collection<Event> eventList) {
         if (eventList != null) {
             List<EventShortDto> eventShortDtoList = new ArrayList<>();
-            for(Event event : eventList) {
+            for (Event event : eventList) {
                 eventShortDtoList.add(toEventShortDto(event));
             }
             return eventShortDtoList;

@@ -28,7 +28,7 @@ public final class ParticipationDtoMapper {
     public static List<ParticipationRequestDto> toParticipationRequestDtoList(Collection<Participation> participationList) {
         if (participationList != null) {
             List<ParticipationRequestDto> participationRequestDtoList = new ArrayList<>();
-            for(Participation participation : participationList) {
+            for (Participation participation : participationList) {
                 participationRequestDtoList.add(toParticipationRequestDto(participation));
             }
             return participationRequestDtoList;

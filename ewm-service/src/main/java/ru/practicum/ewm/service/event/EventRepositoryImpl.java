@@ -17,12 +17,12 @@ public class EventRepositoryImpl {
     private final EntityManager entityManager;
 
     public List<Event> findAllEventsByFilterAdmin(List<Integer> usersIdList,
-                                             List<EventState> states,
-                                             List<Integer> categoriesIdList,
-                                             LocalDateTime rangeStart,
-                                             LocalDateTime rangeEnd,
-                                             int from,
-                                             int size) {
+                                                  List<EventState> states,
+                                                  List<Integer> categoriesIdList,
+                                                  LocalDateTime rangeStart,
+                                                  LocalDateTime rangeEnd,
+                                                  int from,
+                                                  int size) {
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Event> cbQuery = cb.createQuery(Event.class);
@@ -56,26 +56,27 @@ public class EventRepositoryImpl {
 
     /**
      * Выборка из БД событий с возможностью фильтрации, публичный эндпоинт
-     * @param text текст для поиска в содержимом аннотации и подробном описании события
+     *
+     * @param text             текст для поиска в содержимом аннотации и подробном описании события
      * @param categoriesIdList список идентификаторов категорий в которых будет вестись поиск
-     * @param paid поиск только платных/бесплатных событий
-     * @param rangeStart дата и время не раньше которых должно произойти событие
-     * @param rangeEnd дата и время не позже которых должно произойти событие
-     * @param onlyAvailable только события у которых не исчерпан лимит запросов на участие
-     * @param sort Вариант сортировки: по дате события или по количеству просмотров, аvailable values : EVENT_DATE, VIEWS
-     * @param from количество событий, которые нужно пропустить для формирования текущего набора
-     * @param size количество событий в наборе
+     * @param paid             поиск только платных/бесплатных событий
+     * @param rangeStart       дата и время не раньше которых должно произойти событие
+     * @param rangeEnd         дата и время не позже которых должно произойти событие
+     * @param onlyAvailable    только события у которых не исчерпан лимит запросов на участие
+     * @param sort             Вариант сортировки: по дате события или по количеству просмотров, аvailable values : EVENT_DATE, VIEWS
+     * @param from             количество событий, которые нужно пропустить для формирования текущего набора
+     * @param size             количество событий в наборе
      * @return список событий Event
      */
     public List<Event> findAllEventsByFilterPublic(String text,
-                                              List<Integer> categoriesIdList,
-                                              Boolean paid,
-                                              LocalDateTime rangeStart,
-                                              LocalDateTime rangeEnd,
-                                              Boolean onlyAvailable,
-                                              String sort,
-                                              int from,
-                                              int size) {
+                                                   List<Integer> categoriesIdList,
+                                                   Boolean paid,
+                                                   LocalDateTime rangeStart,
+                                                   LocalDateTime rangeEnd,
+                                                   Boolean onlyAvailable,
+                                                   String sort,
+                                                   int from,
+                                                   int size) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Event> cbQuery = cb.createQuery(Event.class);
         Root<Event> root = cbQuery.from(Event.class);
@@ -88,10 +89,10 @@ public class EventRepositoryImpl {
         //текстовый поиск (по аннотации и подробному описанию) должен быть без учета регистра букв
         if (text != null && !text.isEmpty()) {
             predicates.add(
-                cb.or(
-                    cb.like(cb.upper(root.get("annotation")), "%" + text.toUpperCase() + "%"),
-                    cb.like(cb.upper(root.get("description")), "%" + text.toUpperCase() + "%")
-                ));
+                    cb.or(
+                            cb.like(cb.upper(root.get("annotation")), "%" + text.toUpperCase() + "%"),
+                            cb.like(cb.upper(root.get("description")), "%" + text.toUpperCase() + "%")
+                    ));
         }
 
         if (categoriesIdList != null && !categoriesIdList.isEmpty()) {

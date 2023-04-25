@@ -9,9 +9,9 @@ import javax.validation.constraints.Positive;
 @Data
 @Builder
 public class UserShortDto {
-        @Positive
-        private long id;
+    @Positive
+    private long id;
 
-        @NotEmpty
-        private String name;
+    @NotEmpty
+    private String name;
 }

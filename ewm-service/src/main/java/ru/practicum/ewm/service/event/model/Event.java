@@ -6,12 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.service.category.model.Category;
-import ru.practicum.ewm.service.category.model.dto.CategoryDto;
 import ru.practicum.ewm.service.common.models.EventState;
 import ru.practicum.ewm.service.common.models.Location;
 import ru.practicum.ewm.service.compilation.model.Compilation;
 import ru.practicum.ewm.service.user.model.User;
-import ru.practicum.ewm.service.user.model.dto.UserShortDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

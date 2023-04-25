@@ -6,13 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.ewm.service.category.model.dto.CategoryDto;
-import ru.practicum.ewm.service.category.model.dto.CategoryDtoMapper;
 import ru.practicum.ewm.service.common.models.EventState;
 import ru.practicum.ewm.service.event.model.dto.EventDtoMapper;
 import ru.practicum.ewm.service.event.model.dto.EventFullDto;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;

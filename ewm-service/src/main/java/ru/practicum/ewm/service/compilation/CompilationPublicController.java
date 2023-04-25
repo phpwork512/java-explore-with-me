@@ -7,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.service.compilation.model.dto.CompilationDto;
 import ru.practicum.ewm.service.compilation.model.dto.CompilationDtoMapper;
-import ru.practicum.ewm.service.compilation.model.dto.UpdateCompilationRequest;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;

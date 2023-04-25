@@ -8,7 +8,6 @@ import ru.practicum.ewm.service.compilation.model.Compilation;
 import ru.practicum.ewm.service.compilation.model.dto.NewCompilationDto;
 import ru.practicum.ewm.service.compilation.model.dto.UpdateCompilationRequest;
 import ru.practicum.ewm.service.event.EventRepository;
-import ru.practicum.ewm.service.event.model.Event;
 import ru.practicum.ewm.service.exceptions.CompilationNotFoundException;
 
 import java.util.HashSet;

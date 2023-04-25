@@ -3,9 +3,7 @@ package ru.practicum.ewm.service.compilation.model.dto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.service.compilation.model.Compilation;
-import ru.practicum.ewm.service.event.model.Event;
 import ru.practicum.ewm.service.event.model.dto.EventDtoMapper;
-import ru.practicum.ewm.service.event.model.dto.EventShortDto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +27,7 @@ public final class CompilationDtoMapper {
     public static List<CompilationDto> toCompilationDtoList(Collection<Compilation> compilations) {
         if (compilations != null) {
             List<CompilationDto> compilationDtoList = new ArrayList<>();
-            for(Compilation compilation : compilations) {
+            for (Compilation compilation : compilations) {
                 compilationDtoList.add(toCompilationDto(compilation));
             }
             return compilationDtoList;

@@ -9,8 +9,6 @@ import ru.practicum.ewm.service.compilation.model.dto.CompilationDto;
 import ru.practicum.ewm.service.compilation.model.dto.CompilationDtoMapper;
 import ru.practicum.ewm.service.compilation.model.dto.NewCompilationDto;
 import ru.practicum.ewm.service.compilation.model.dto.UpdateCompilationRequest;
-import ru.practicum.ewm.service.event.model.dto.EventDtoMapper;
-import ru.practicum.ewm.service.event.model.dto.EventFullDto;
 
 import javax.validation.constraints.Positive;
 

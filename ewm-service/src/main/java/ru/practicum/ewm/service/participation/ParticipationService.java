@@ -54,7 +54,8 @@ public class ParticipationService {
 
     /**
      * получить запрос на участие пользователя в событии
-     * @param eventId id события
+     *
+     * @param eventId     id события
      * @param requesterId id пользователя-участника
      * @return объект Participation или null если не найдено
      */
@@ -127,7 +128,8 @@ public class ParticipationService {
 
     /**
      * Добавление запроса от текущего пользователя на участие в событии
-     * @param eventId id события
+     *
+     * @param eventId     id события
      * @param requesterId id пользователя
      * @return созданный объект Participation
      */
@@ -171,8 +173,9 @@ public class ParticipationService {
 
     /**
      * Отмена своего запроса на участие в событии
+     *
      * @param requestId id запроса
-     * @param userId id пользователя
+     * @param userId    id пользователя
      * @return объект Participation
      */
     public Participation cancelParticipationRequest(long requestId, long userId) {

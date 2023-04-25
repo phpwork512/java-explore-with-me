@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.service.event.model.Event;
-import ru.practicum.ewm.service.event.model.dto.EventShortDto;
 
 import javax.persistence.*;
 import java.util.HashSet;

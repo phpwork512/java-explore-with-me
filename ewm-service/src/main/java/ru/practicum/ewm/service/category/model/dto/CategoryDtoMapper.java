@@ -3,8 +3,6 @@ package ru.practicum.ewm.service.category.model.dto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewm.service.category.model.Category;
-import ru.practicum.ewm.service.compilation.model.Compilation;
-import ru.practicum.ewm.service.compilation.model.dto.CompilationDto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +29,7 @@ public final class CategoryDtoMapper {
     public static List<CategoryDto> toCategoryDtoList(Collection<Category> categories) {
         if (categories != null) {
             List<CategoryDto> categoryDtoList = new ArrayList<>();
-            for(Category category : categories) {
+            for (Category category : categories) {
                 categoryDtoList.add(toCategoryDto(category));
             }
             return categoryDtoList;

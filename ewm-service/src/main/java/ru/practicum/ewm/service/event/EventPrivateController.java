@@ -30,7 +30,7 @@ public class EventPrivateController {
     @ResponseStatus(HttpStatus.OK)
     public List<EventShortDto> getUserEvents(@Positive @PathVariable long userId,
                                              @PositiveOrZero @RequestParam(defaultValue = "0") int from,
-                                             @Positive @RequestParam(defaultValue = "10") int size)  {
+                                             @Positive @RequestParam(defaultValue = "10") int size) {
         log.info("Get all events for user: userId = {}, from = {}, size = {}", userId, from, size);
         return EventDtoMapper.toEventShortDtoList(eventService.getUserEvents(userId, from, size));
     }
@@ -38,7 +38,7 @@ public class EventPrivateController {
     @PostMapping("/{userId}/events")
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto createEvent(@Valid @RequestBody NewEventDto newEventDto,
-                                    @Positive @PathVariable long userId)  {
+                                    @Positive @PathVariable long userId) {
         log.info("Create new event {} for userId {}", newEventDto, userId);
         return EventDtoMapper.toEventFullDto(eventService.createEvent(newEventDto, userId));
     }
@@ -70,7 +70,7 @@ public class EventPrivateController {
     @PatchMapping("/{userId}/events/{eventId}/requests")
     @ResponseStatus(HttpStatus.OK)
     public EventRequestStatusUpdateResult updateRequestsStatus(@Valid @RequestBody EventRequestStatusUpdateRequest updateRequest,
-                                                               @Positive@PathVariable long userId,
+                                                               @Positive @PathVariable long userId,
                                                                @Positive @PathVariable long eventId) {
         log.info("Update participation requests for event: userId = {}, eventId = {}, updateRequest = {}", userId, eventId, updateRequest);
         return participationService.updateRequestsStatus(updateRequest, eventId, userId);
