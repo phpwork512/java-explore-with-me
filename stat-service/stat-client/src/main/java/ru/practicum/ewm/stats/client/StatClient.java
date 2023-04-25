@@ -7,7 +7,6 @@ import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import ru.practicum.ewm.stats.common_dto.StatRecordCreateDto;
 import ru.practicum.ewm.stats.common_dto.ViewStatsDto;
 
