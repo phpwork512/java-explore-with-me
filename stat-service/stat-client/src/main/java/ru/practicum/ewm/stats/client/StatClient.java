@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.stats.common_dto.StatRecordCreateDto;
 import ru.practicum.ewm.stats.common_dto.ViewStatsDto;
@@ -21,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 @Slf4j
 public class StatClient {
     private final String appName;
@@ -30,7 +31,7 @@ public class StatClient {
     private final ObjectMapper json;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public StatClient(@Value("$spring.application.name") String appName,
+    public StatClient(@Value("${spring.application.name}") String appName,
                       @Value("${stat-server.url}") String serverUrl,
                       ObjectMapper json) {
         this.appName = appName;
