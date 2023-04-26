@@ -55,7 +55,7 @@ public class ErrorHandler {
             ParticipationRequestLimitReachedException.class,
             UserEmailNotUniqueException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleUserEmailNotUniqueException(final UserEmailNotUniqueException e) {
+    public ErrorResponse handleUserEmailNotUniqueException(final RuntimeException e) {
         log.info(e.getMessage());
         return ErrorResponse.builder()
                 .status("CONFLICT")

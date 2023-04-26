@@ -57,7 +57,7 @@ public class CompilationService {
             if (updateRequest.getEvents().isEmpty()) {
                 compilation.setEvents(new HashSet<>());
             } else {
-                compilation.setEvents(Set.copyOf(eventRepository.findByIdIn(List.copyOf(updateRequest.getEvents()))));
+                compilation.setEvents(eventRepository.findByIdIn(List.copyOf(updateRequest.getEvents())));
             }
         }
 

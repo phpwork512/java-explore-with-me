@@ -10,6 +10,7 @@ import ru.practicum.ewm.service.compilation.model.dto.CompilationDtoMapper;
 import ru.practicum.ewm.service.compilation.model.dto.NewCompilationDto;
 import ru.practicum.ewm.service.compilation.model.dto.UpdateCompilationRequest;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -22,7 +23,7 @@ public class CompilationAdminController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CompilationDto create(@RequestBody NewCompilationDto newCompilationDto) {
+    public CompilationDto create(@Valid @RequestBody NewCompilationDto newCompilationDto) {
         log.info("Admin create compilation: {}", newCompilationDto);
         return CompilationDtoMapper.toCompilationDto(compilationService.create(newCompilationDto));
     }

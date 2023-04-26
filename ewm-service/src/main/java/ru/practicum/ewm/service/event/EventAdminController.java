@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.service.common.models.EventState;
 import ru.practicum.ewm.service.event.model.dto.EventDtoMapper;
 import ru.practicum.ewm.service.event.model.dto.EventFullDto;
+import ru.practicum.ewm.service.event.model.dto.UpdateEventAdminRequest;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -42,8 +43,8 @@ public class EventAdminController {
 
     @PatchMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
-    public EventFullDto update(@RequestBody EventFullDto eventFullDto, @Positive @PathVariable long eventId) {
-        log.info("Admin update event: {}, eventId = {}", eventFullDto, eventId);
-        return EventDtoMapper.toEventFullDto(eventService.updateEventByAdmin(EventDtoMapper.toEvent(eventFullDto), eventId));
+    public EventFullDto update(@RequestBody UpdateEventAdminRequest updateRequest, @Positive @PathVariable long eventId) {
+        log.info("Admin update event: {}, eventId = {}", updateRequest, eventId);
+        return EventDtoMapper.toEventFullDto(eventService.updateEventByAdmin(updateRequest, eventId));
     }
 }

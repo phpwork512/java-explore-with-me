@@ -23,7 +23,9 @@ public class CategoryAdminController {
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDto create(@Valid @RequestBody CategoryDto categoryDto) {
         log.info("Admin create category: {}", categoryDto);
-        return CategoryDtoMapper.toCategoryDto(categoryService.create(CategoryDtoMapper.toCategory(categoryDto)));
+        CategoryDto result = CategoryDtoMapper.toCategoryDto(categoryService.create(CategoryDtoMapper.toCategory(categoryDto)));
+        log.info("Admin create category result: {}", result);
+        return result;
     }
 
     @PatchMapping("/{categoryId}")

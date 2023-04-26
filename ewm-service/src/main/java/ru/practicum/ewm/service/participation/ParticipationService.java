@@ -78,9 +78,12 @@ public class ParticipationService {
         //если для события лимит заявок равен 0 или отключена пре-модерация заявок, то подтверждение заявок не требуется
         if (participantLimit > 0 && event.getRequestModeration()) {
 
-            //нельзя подтвердить заявку, если уже достигнут лимит по заявкам на данное событие (Ожидается код ошибки 409)
-            if (confirmedRequests >= participantLimit) {
-                throw new ParticipationRequestLimitException("Достигнут лимит по заявкам на событие " + eventId);
+            //подтверждение заявки
+            if ("CONFIRMED".equals(newStatus)) {
+                //нельзя подтвердить заявку, если уже достигнут лимит по заявкам на данное событие (Ожидается код ошибки 409)
+                if (confirmedRequests >= participantLimit) {
+                    throw new ParticipationRequestLimitException("Достигнут лимит по заявкам на событие " + eventId);
+                }
             }
 
             for (Long requestId : updateRequest.getRequestIds()) {
@@ -88,15 +91,24 @@ public class ParticipationService {
 
                 //статус можно изменить только у заявок, находящихся в состоянии ожидания
                 if (RequestStatus.PENDING.toString().equals(storageRequest.getStatus())) {
-                    if (confirmedRequests++ < participantLimit) {
-                        storageRequest.setStatus(newStatus);
 
-                        //если при подтверждении данной заявки, лимит заявок для события исчерпан,
-                        // то все неподтверждённые заявки необходимо отклонить
-                        if (confirmedRequests == participantLimit) {
-                            rejectAllPendingRequests(eventId);
-                            break;
+                    //подтверждение заявки
+                    if ("CONFIRMED".equals(newStatus)) {
+                        if (confirmedRequests++ < participantLimit) {
+                            storageRequest.setStatus(newStatus);
+                            participationRepository.save(storageRequest);
+
+                            //если при подтверждении данной заявки, лимит заявок для события исчерпан,
+                            // то все неподтверждённые заявки необходимо отклонить
+                            if (confirmedRequests == participantLimit) {
+                                rejectAllPendingRequests(eventId);
+                                break;
+                            }
                         }
+                    } else {
+                        //отклонение заявки
+                        storageRequest.setStatus(newStatus);
+                        participationRepository.save(storageRequest);
                     }
                 } else {
                     throw new ParticipationRequestInvalidStateException("Неверное состояние заявки " + requestId + " перед модерацией");
@@ -159,7 +171,14 @@ public class ParticipationService {
         }
 
         //если для события отключена пре-модерация запросов на участие, то запрос должен автоматически перейти в состояние подтвержденного
-        String newStatus = event.getParticipantLimit() > 0 && event.getRequestModeration() ? RequestStatus.PENDING.toString() : RequestStatus.CONFIRMED.toString();
+        String newStatus;
+        if (event.getParticipantLimit() > 0 && event.getRequestModeration()) {
+            newStatus = RequestStatus.PENDING.toString();
+        } else {
+            newStatus = RequestStatus.CONFIRMED.toString();
+            event.setConfirmedRequests(event.getConfirmedRequests() + 1);
+            eventRepository.save(event);
+        }
 
         Participation request = Participation.builder()
                 .created(LocalDateTime.now())
@@ -184,22 +203,19 @@ public class ParticipationService {
             throw new ParticipationRequestNotFoundException("Запрос " + requestId + " не найден");
         }
 
-        if (!RequestStatus.PENDING.toString().equals(request.getStatus())) {
-            String oldStatus = request.getStatus();
-            request.setStatus(RequestStatus.PENDING.toString());
-            Participation storageRequest = participationRepository.save(request);
+        String oldStatus = request.getStatus();
+        request.setStatus(RequestStatus.CANCELED.toString());
+        Participation storageRequest = participationRepository.save(request);
 
-            //если заявка была подтверждена и это событие с ограничением участников и модерацией то уменьшить счетчик подтверждений
-            if (RequestStatus.CONFIRMED.toString().equals(oldStatus)) {
-                Event event = storageRequest.getEvent();
-                if (event.getRequestModeration() && event.getParticipantLimit() > 0) {
-                    event.setConfirmedRequests(event.getConfirmedRequests() - 1);
-                }
-                eventRepository.save(event);
+        //если заявка была подтверждена и это событие с ограничением участников и модерацией то уменьшить счетчик подтверждений
+        if (RequestStatus.CONFIRMED.toString().equals(oldStatus)) {
+            Event event = storageRequest.getEvent();
+            if (event.getRequestModeration() && event.getParticipantLimit() > 0) {
+                event.setConfirmedRequests(event.getConfirmedRequests() - 1);
             }
-            return storageRequest;
+            eventRepository.save(event);
         }
 
-        return null;
+        return storageRequest;
     }
 }

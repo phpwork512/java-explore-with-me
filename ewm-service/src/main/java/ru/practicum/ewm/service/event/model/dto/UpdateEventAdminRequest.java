@@ -4,7 +4,7 @@ import lombok.Data;
 import ru.practicum.ewm.service.common.models.Location;
 
 @Data
-public class UpdateEventUserRequest {
+public class UpdateEventAdminRequest {
     private String annotation;
 
     private Long category;

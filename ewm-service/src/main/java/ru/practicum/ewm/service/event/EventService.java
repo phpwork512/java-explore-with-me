@@ -5,11 +5,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.service.category.CategoryRepository;
+import ru.practicum.ewm.service.category.CategoryService;
 import ru.practicum.ewm.service.common.EwmConstants;
 import ru.practicum.ewm.service.common.models.EventState;
 import ru.practicum.ewm.service.common.pagination.PaginationCalculator;
 import ru.practicum.ewm.service.event.model.Event;
 import ru.practicum.ewm.service.event.model.dto.NewEventDto;
+import ru.practicum.ewm.service.event.model.dto.UpdateEventAdminRequest;
 import ru.practicum.ewm.service.event.model.dto.UpdateEventUserRequest;
 import ru.practicum.ewm.service.exceptions.CategoryNameNotUniqueException;
 import ru.practicum.ewm.service.exceptions.EventNotFoundException;
@@ -102,33 +104,71 @@ public class EventService {
         return eventRepositoryImpl.findAllEventsByFilterPublic(text, categoriesIdList, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
     }
 
-    public Event updateEventByAdmin(Event event, long eventId) {
+    public Event updateEventByAdmin(UpdateEventAdminRequest updateRequest, long eventId) {
         Event storageEvent = getEventById(eventId);
 
-        //проверки возможности редактирования
         //событие можно отклонить, только если оно еще не опубликовано (Ожидается код ошибки 409)
-        if (event.getState() == EventState.CANCELED && storageEvent.getState() != EventState.PENDING) {
-            throw new EventUpdateException("Cannot cancel the event because it's not in the right state: " + storageEvent.getState().toString());
+        if (updateRequest.getStateAction() != null && "REJECT_EVENT".equals(updateRequest.getStateAction())) {
+            if (storageEvent.getState() != EventState.PENDING) {
+                throw new EventUpdateException("Cannot cancel the event because it's not in the right state: " + storageEvent.getState().toString());
+            } else {
+                storageEvent.setState(EventState.CANCELED);
+            }
         }
 
         //событие можно публиковать, только если оно в состоянии ожидания публикации (Ожидается код ошибки 409)
-        if (event.getState() == EventState.PUBLISHED && storageEvent.getState() != EventState.PENDING) {
-            throw new EventUpdateException("Cannot publish the event because it's not in the right state: " + storageEvent.getState().toString());
+        if (updateRequest.getStateAction() != null && "PUBLISH_EVENT".equals(updateRequest.getStateAction())) {
+            if (storageEvent.getState() != EventState.PENDING) {
+                throw new EventUpdateException("Cannot publish the event because it's not in the right state: " + storageEvent.getState().toString());
+            } else {
+                storageEvent.setState(EventState.PUBLISHED);
+                storageEvent.setPublishedOn(LocalDateTime.now());
+            }
         }
 
         //дата начала изменяемого события должна быть не ранее чем за час от даты публикации. (Ожидается код ошибки 409)
-        if (event.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
-            throw new EventUpdateException("Дата начала изменяемого события должна быть не ранее чем за час от даты публикации");
+        if (updateRequest.getEventDate() != null) {
+            LocalDateTime newEventDate = LocalDateTime.parse(updateRequest.getEventDate(), EwmConstants.DATE_TIME_FORMATTER);
+            if (newEventDate.isBefore(LocalDateTime.now().plusHours(1))) {
+                throw new EventUpdateException("Дата начала изменяемого события должна быть не ранее чем за час от даты публикации");
+            } else {
+                storageEvent.setEventDate(newEventDate);
+            }
         }
 
-        event.setId(eventId);
-        try {
-            storageEvent = eventRepository.save(event);
-        } catch (DataIntegrityViolationException e) {
-            throw new CategoryNameNotUniqueException("Название категории не уникально");
+        if (updateRequest.getAnnotation() != null) {
+            storageEvent.setAnnotation(updateRequest.getAnnotation());
         }
 
-        return storageEvent;
+        if (updateRequest.getCategory() != null) {
+            storageEvent.setCategory(categoryRepository.getReferenceById(updateRequest.getCategory()));
+        }
+
+        if (updateRequest.getDescription() != null) {
+            storageEvent.setDescription(updateRequest.getDescription());
+        }
+
+        if (updateRequest.getLocation() != null) {
+            storageEvent.setLocation(updateRequest.getLocation());
+        }
+
+        if (updateRequest.getPaid() != null) {
+            storageEvent.setPaid(updateRequest.getPaid());
+        }
+
+        if (updateRequest.getParticipantLimit() != null) {
+            storageEvent.setParticipantLimit(updateRequest.getParticipantLimit());
+        }
+
+        if (updateRequest.getRequestModeration() != null) {
+            storageEvent.setRequestModeration(updateRequest.getRequestModeration());
+        }
+
+        if (updateRequest.getTitle() != null) {
+            storageEvent.setTitle(updateRequest.getTitle());
+        }
+
+        return eventRepository.save(storageEvent);
     }
 
     public List<Event> getUserEvents(long userId, int from, int size) {
@@ -143,7 +183,7 @@ public class EventService {
         }
 
         Event event = Event.builder()
-                .category(categoryRepository.getReferenceById(newEventDto.getCategoryId()))
+                .category(categoryRepository.getReferenceById(newEventDto.getCategory()))
                 .annotation(newEventDto.getAnnotation())
                 .description(newEventDto.getDescription())
                 .eventDate(LocalDateTime.parse(newEventDto.getEventDate(), EwmConstants.DATE_TIME_FORMATTER))
@@ -153,6 +193,7 @@ public class EventService {
                 .requestModeration(newEventDto.isRequestModeration())
                 .title(newEventDto.getTitle())
                 .createdOn(LocalDateTime.now())
+                .publishedOn(LocalDateTime.now())
                 .initiator(userService.getUserById(userId))
                 .state(EventState.PENDING)
                 .build();
@@ -182,8 +223,8 @@ public class EventService {
             storageEvent.setAnnotation(eventRequest.getAnnotation());
         }
 
-        if (eventRequest.getCategoryId() != null) {
-            storageEvent.setCategory(categoryRepository.getReferenceById(eventRequest.getCategoryId()));
+        if (eventRequest.getCategory() != null) {
+            storageEvent.setCategory(categoryRepository.getReferenceById(eventRequest.getCategory()));
         }
 
         if (eventRequest.getDescription() != null) {

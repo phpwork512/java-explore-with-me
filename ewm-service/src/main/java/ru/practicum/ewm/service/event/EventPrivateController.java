@@ -47,7 +47,7 @@ public class EventPrivateController {
     @ResponseStatus(HttpStatus.OK)
     public EventFullDto getEventByIdAndInitiatorId(@Positive @PathVariable long userId, @Positive @PathVariable long eventId) {
         log.info("Get event: userId = {}, eventId = {}", userId, eventId);
-        return EventDtoMapper.toEventFullDto(eventService.getEventByIdAndInitiatorId(userId, eventId));
+        return EventDtoMapper.toEventFullDto(eventService.getEventByIdAndInitiatorId(eventId, userId));
     }
 
     @PatchMapping("/{userId}/events/{eventId}")
@@ -64,7 +64,7 @@ public class EventPrivateController {
     public List<ParticipationRequestDto> getRequestsByEventIdAndInitiatorId(@Positive @PathVariable long userId,
                                                                             @Positive @PathVariable long eventId) {
         log.info("Get participation requests for event: userId = {}, eventId = {}", userId, eventId);
-        return ParticipationDtoMapper.toParticipationRequestDtoList(participationService.getRequestsByEventIdAndInitiatorId(userId, eventId));
+        return ParticipationDtoMapper.toParticipationRequestDtoList(participationService.getRequestsByEventIdAndInitiatorId(eventId, userId));
     }
 
     @PatchMapping("/{userId}/events/{eventId}/requests")

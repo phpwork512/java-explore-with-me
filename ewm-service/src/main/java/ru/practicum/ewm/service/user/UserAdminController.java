@@ -37,9 +37,9 @@ public class UserAdminController {
         return UserDtoMapper.toUserDto(userService.create(UserDtoMapper.toUser(userDto)));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@Positive @RequestParam long userId) {
+    public void delete(@Positive @PathVariable long userId) {
         log.info("Admin delete user: userId = {}", userId);
         userService.delete(userId);
     }

@@ -1,10 +1,7 @@
 package ru.practicum.ewm.service.event.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.practicum.ewm.service.category.model.Category;
 import ru.practicum.ewm.service.common.models.EventState;
 import ru.practicum.ewm.service.common.models.Location;
@@ -16,7 +13,9 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -70,6 +69,7 @@ public class Event {
     @Column(name = "request_moderation", nullable = false)
     private Boolean requestModeration;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
     private EventState state;
 

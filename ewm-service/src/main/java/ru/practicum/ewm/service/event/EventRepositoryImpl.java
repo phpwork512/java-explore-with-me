@@ -30,15 +30,15 @@ public class EventRepositoryImpl {
 
         List<Predicate> predicates = new ArrayList<>();
         if (usersIdList != null && !usersIdList.isEmpty()) {
-            predicates.add(cb.in(root.get("initiator.id").in(usersIdList)));
+            predicates.add(root.get("initiator").get("id").in(usersIdList));
         }
 
         if (states != null && !states.isEmpty()) {
-            predicates.add(cb.in(root.get("state").in(states)));
+            predicates.add(root.get("state").in(states));
         }
 
         if (categoriesIdList != null && !categoriesIdList.isEmpty()) {
-            predicates.add(cb.in(root.get("category.id").in(categoriesIdList)));
+            predicates.add(root.get("category").get("id").in(categoriesIdList));
         }
 
         if (rangeStart != null) {
@@ -96,7 +96,7 @@ public class EventRepositoryImpl {
         }
 
         if (categoriesIdList != null && !categoriesIdList.isEmpty()) {
-            predicates.add(cb.in(root.get("category.id").in(categoriesIdList)));
+            predicates.add(root.get("category").get("id").in(categoriesIdList));
         }
 
         if (paid != null) {
