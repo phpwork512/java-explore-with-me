@@ -1,11 +1,9 @@
 package ru.practicum.ewm.service.event;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.service.category.CategoryRepository;
-import ru.practicum.ewm.service.category.CategoryService;
 import ru.practicum.ewm.service.common.EwmConstants;
 import ru.practicum.ewm.service.common.models.EventState;
 import ru.practicum.ewm.service.common.pagination.PaginationCalculator;
@@ -13,7 +11,6 @@ import ru.practicum.ewm.service.event.model.Event;
 import ru.practicum.ewm.service.event.model.dto.NewEventDto;
 import ru.practicum.ewm.service.event.model.dto.UpdateEventAdminRequest;
 import ru.practicum.ewm.service.event.model.dto.UpdateEventUserRequest;
-import ru.practicum.ewm.service.exceptions.CategoryNameNotUniqueException;
 import ru.practicum.ewm.service.exceptions.EventNotFoundException;
 import ru.practicum.ewm.service.exceptions.EventUpdateException;
 import ru.practicum.ewm.service.user.UserService;
