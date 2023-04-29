@@ -32,9 +32,7 @@ public class EventPublicController {
         String remoteIp = request.getRemoteAddr();
         String requestUri = request.getRequestURI();
 
-        log.info("Public get event: eventId = {}", eventId);
-        log.info("Public get event: remoteIp = {}, requestUri = {}", remoteIp, requestUri);
-
+        log.info("Public get event: eventId = {}, remoteIp = {}, requestUri = {}", eventId, remoteIp, requestUri);
         return EventDtoMapper.toEventFullDto(eventService.getEventByIdPublic(eventId, requestUri, remoteIp));
     }
 

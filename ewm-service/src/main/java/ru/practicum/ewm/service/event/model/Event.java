@@ -13,9 +13,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Data
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -86,6 +84,6 @@ public class Event {
             },
             mappedBy = "events")
     @JsonIgnore
-    @Builder.Default
+    @EqualsAndHashCode.Exclude
     private Set<Compilation> compilations = new HashSet<>();
 }
