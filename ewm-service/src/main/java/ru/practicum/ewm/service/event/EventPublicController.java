@@ -125,8 +125,8 @@ public class EventPublicController {
      * API запрос на удаление автором комментария для события
      * ручка DELETE /{eventId}/comments/{authorId}/{commentId}
      *
-     * @param eventId id события
-     * @param authorId ид автора комментария
+     * @param eventId   id события
+     * @param authorId  ид автора комментария
      * @param commentId ид комментария
      */
     @DeleteMapping("/{eventId}/comments/{authorId}/{commentId}")

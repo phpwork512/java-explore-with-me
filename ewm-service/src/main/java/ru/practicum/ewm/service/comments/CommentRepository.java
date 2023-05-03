@@ -2,7 +2,6 @@ package ru.practicum.ewm.service.comments;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.practicum.ewm.service.category.model.Category;
 import ru.practicum.ewm.service.comments.model.Comment;
 
 import java.util.List;
