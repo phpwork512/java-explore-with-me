@@ -30,6 +30,7 @@ public class ErrorHandler {
 
     @ExceptionHandler({CategoryNotFoundException.class,
             CompilationNotFoundException.class,
+            CommentNotFoundException.class,
             EventNotFoundException.class,
             UserNotFoundException.class,
             ParticipationRequestNotFoundException.class})
@@ -46,6 +47,7 @@ public class ErrorHandler {
 
     @ExceptionHandler({CategoryHaveLinkedEventsException.class,
             CategoryNameNotUniqueException.class,
+            CommentEventIsNotPublishedException.class,
             EventUpdateException.class,
             ParticipationRequestDuplicationException.class,
             ParticipationRequestEventNotPublishedException.class,
